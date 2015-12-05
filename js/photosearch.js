@@ -48,6 +48,16 @@ $(document).ready(function() {
       lat: geoLocation.lat,
       lon: geoLocation.lng
     }
+
+    var lat = geoLocation.lat
+    var lng = geoLocation.lng
+
+    $.getJSON("http://api.open-notify.org/iss-pass.json?lat=" + lat + "&lon=" + lng + "&alt=20&n=5&callback=?", function(data) {
+      data["response"].forEach(function (d) {
+      var date = new Date(d['risetime']*1000);
+      $("#isspass").append("<li>" + date.toString() + "</li>");
+    });
+  });
     
     $.ajax({
       type: "GET",
